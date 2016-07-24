@@ -6,10 +6,10 @@ public class Test {
 
 	public static void main(String[] args) throws Exception {
 		// TODO 自動生成されたメソッド・スタブ
-		//new Database(4,100,"./src/tokumei/data.txt");
+		new Database(4,50,"./src/tokumei/data.txt");
 
-		//Input input = new Input("./src/tokumei/data.txt");
-		Input input = new Input("./data/rand_100.txt");
+		Input input = new Input("./src/tokumei/data.txt");
+		//Input input = new Input("./data/rand_100.txt");
 
 		long start = System.currentTimeMillis();
 

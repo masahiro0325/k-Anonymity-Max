@@ -3,9 +3,17 @@ package tokumei;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.Random;
 
 public class Database {
+
+	 final String URL = "jdbc:mysql://localhost/ktokumei";
+	 final String USERNAME = "root";
+	 final String PASSWORD = "";
+
 
 	public Database(int keta, int gyo,String x) throws Exception{
 		String str="";
@@ -28,5 +36,26 @@ public class Database {
 		 BufferedWriter bw = new BufferedWriter(new FileWriter(newfile));
 		 bw.write(str);
 		 bw.close();
+
+		 mysql(str);
+	}
+
+	public void mysql(String str) throws Exception{
+		Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        Statement statement = connection.createStatement();
+
+        String sql = "TRUNCATE TABLE data;";
+        statement.executeUpdate(sql);
+
+        String[] list= str.split("\n", 0);
+
+        for(int i=0; i<list.length; i++){
+        	String[] line = list[i].split(",",0);
+        	sql = "INSERT INTO data (c1, c2, c3, z) VALUES ('"+line[0]+"', '"+line[1]+"', '"+line[2]+"','"+line[3]+"');";
+        	statement.executeUpdate(sql);
+        }
+
+        statement.close();
+        connection.close();
 	}
 }
